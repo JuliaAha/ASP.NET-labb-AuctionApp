@@ -7,7 +7,7 @@ public class Auction : IComparable<Auction>
     public int AuctionId { get; set; }
     public double StartingPrice { get; set; }
     public string AuctionTitle { get; set; }
-    public DateTime AuctionEndDate { get; set; }
+    public DateTime EndDate { get; set; }
     public string AuctionDescription { get; set; }
     public string AuctionOwner { get; set; }
    
@@ -19,17 +19,17 @@ public class Auction : IComparable<Auction>
     {
         AuctionTitle = title;
         AuctionOwner = auctionOwner;
-        AuctionEndDate = AuctionEndDate.AddDays(5);
+        EndDate = EndDate.AddDays(5);
     }
 
     public Auction() { }
 
-    public Auction(int auctionId, string title, string auctionOwner, string auctionDescription, DateTime auctionEndDate, double startingPrice)
+    public Auction(int auctionId, string title, string auctionOwner, string auctionDescription, DateTime endDate, double startingPrice)
     {
         AuctionId = auctionId;
         AuctionTitle = title;
         AuctionOwner = auctionOwner;
-        AuctionEndDate = auctionEndDate;
+        EndDate = endDate;
         AuctionDescription = auctionDescription;
         StartingPrice = startingPrice;
     }
@@ -40,7 +40,7 @@ public class Auction : IComparable<Auction>
         {
             throw new NotImplementedException();
         }
-        if (AuctionEndDate.CompareTo(DateTime.Now) <= 0)
+        if (EndDate.CompareTo(DateTime.Now) <= 0)
         {
             throw new NotImplementedException();
         }
@@ -61,12 +61,12 @@ public class Auction : IComparable<Auction>
 
     public bool IsActive()
     {
-        return AuctionEndDate > DateTime.Now;
+        return EndDate > DateTime.Now;
     }
 
     public int CompareTo(Auction other)
     {
-        return AuctionEndDate.CompareTo(other.AuctionEndDate);
+        return EndDate.CompareTo(other.EndDate);
     }
     
     public override string ToString()

@@ -11,9 +11,10 @@ public class AuctionDetailsVm
     public double StartingPrice { get; set; }
     public string Title { get; set; }
     public string Description { get; set; }
-    [Display(Name = "Auction End date")]
+    
+    [Display(Name = "Auction ends at")]
     [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd HH:mm}")]
-    public DateTime AuctionEndDate { get; set; }
+    public DateTime EndDate { get; set; }
     public bool IsActive { get; set; }
     
     [Display(Name = "Auction owner")]
@@ -27,7 +28,7 @@ public class AuctionDetailsVm
             Id = auction.AuctionId,
             Title = auction.AuctionTitle,
             Description = auction.AuctionDescription,
-            AuctionEndDate = auction.AuctionEndDate,
+            EndDate = auction.EndDate,
             IsActive = auction.IsActive(),
             AuctionOwner = auction.AuctionOwner,
             StartingPrice = auction.StartingPrice

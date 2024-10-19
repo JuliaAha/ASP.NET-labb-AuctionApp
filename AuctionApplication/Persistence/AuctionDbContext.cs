@@ -15,8 +15,8 @@ public class AuctionDbContext : DbContext
         {
             Id = -1, //seed date
             Title = "Kofta",
+            Description = "Hej",
             EndDate = DateTime.Now.AddDays(3),
-            Description = "En gul kofta",
             AuctionOwner = "julg@kth.se",
             StartingPrice = 200,
             BidDbs = new List<BidDb>()

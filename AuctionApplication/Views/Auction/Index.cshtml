@@ -19,7 +19,13 @@
                 @Html.DisplayNameFor(model => model.Description)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.AuctionEndDate)
+                @Html.DisplayNameFor(model => model.StartingPrice)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AuctionOwner)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EndDate)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.IsActive)
@@ -34,13 +40,16 @@
                 @Html.DisplayFor(modelItem => item.Title)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.AuctionOwner)
-            </td>
-            <td>
                 @Html.DisplayFor(modelItem => item.Description)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.AuctionEndDate)
+                @Html.DisplayFor(modelItem => item.StartingPrice)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AuctionOwner)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EndDate)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.IsActive)

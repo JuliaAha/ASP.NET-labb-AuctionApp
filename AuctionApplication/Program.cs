@@ -1,3 +1,4 @@
+using AuctionApp.Core;
 using AuctionApplication.Core;
 using AuctionApplication.Core.Interfaces;
 using AuctionApplication.Core.Interfaces.Interfaces;
@@ -10,7 +11,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 
 // Dependency injection of persistence into services
-builder.Services.AddScoped<IAuctionService, MockAuctionService>();
+builder.Services.AddScoped<IAuctionService, AuctionService>();
 
 // projectsdb
 builder.Services.AddDbContext<AuctionDbContext>(
