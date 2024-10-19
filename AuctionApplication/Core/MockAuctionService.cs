@@ -1,4 +1,3 @@
-using AuctionApplication.Core.Interfaces;
 using AuctionApplication.Core.Interfaces.Interfaces;
 
 namespace AuctionApplication.Core;

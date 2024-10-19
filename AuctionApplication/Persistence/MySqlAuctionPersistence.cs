@@ -1,4 +1,5 @@
 using System.Data;
+using AuctionApplication.Core;
 using AuctionApplication.Core.Interfaces;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;

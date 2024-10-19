@@ -1,3 +1,4 @@
+using AuctionApplication.Core;
 using AuctionApplication.Core.Interfaces;
 using AuctionApplication.Persistence;
 using AutoMapper;

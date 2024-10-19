@@ -1,3 +1,4 @@
+using AuctionApplication.Core;
 using AuctionApplication.Core.Interfaces;
 using AuctionApplication.Core.Interfaces.Interfaces;
 using AuctionApplication.Models.Auctions;

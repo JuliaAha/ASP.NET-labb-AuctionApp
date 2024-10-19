@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using AuctionApplication.Core;
 using AuctionApplication.Core.Interfaces;
 
 namespace AuctionApplication.Models.Auctions;

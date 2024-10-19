@@ -1,4 +1,4 @@
-namespace AuctionApplication.Core.Interfaces;
+namespace AuctionApplication.Core;
 
 public class Bid : IComparable<Bid>
 {
