@@ -1,0 +1,30 @@
+using System.ComponentModel.DataAnnotations;
+
+namespace AuctionApplication.Persistence;
+
+public class AuctionDb
+{
+    [Key]
+    public int Id { get; set; }
+    
+    [Required]
+    [MaxLength(128)]
+    public string Title { get; set; }
+    
+    [Required]
+    [MaxLength(500)]
+    public string Description{ get; set; }
+    
+    [Required]
+    [DataType(DataType.DateTime)]
+    public DateTime EndDate { get; set; }
+    
+    [Required]
+    public string AuctionOwner { get; set; }
+    
+    [Required]
+    public double StartingPrice { get; set; }
+    
+    //Navigation property
+    public List<AuctionDb> AuctionsDbs { get; set; } = new List<AuctionDb>();
+}

@@ -24,6 +24,39 @@ public class MockAuctionService : IAuctionService
         return activeAuctions;
     }
 
+    public List<Auction> GetWonAuctions(string userName)
+    {
+        List<Auction> wonAuctions = new List<Auction>();
+        foreach (Auction auction in _auctions)
+        {
+            if (!auction.IsActive() && auction.Bids.First().UserName.Equals(userName))
+            {
+                wonAuctions.Add(auction);
+            }
+        }
+        return wonAuctions;
+    }
+
+    public List<Auction> GetMyActive(string userName)
+    {
+        List<Auction> myActiveAuctions = new List<Auction>();
+        foreach (Auction auction in _auctions)
+        {
+            if (auction.IsActive())
+            {
+                foreach (Bids bids in auction.Bids)
+                {
+                    if (bids.UserName.Equals(userName) && !myActiveAuctions.Contains(auction))
+                    {
+                        myActiveAuctions.Add(auction);
+                    }
+                }
+            } 
+        }
+        myActiveAuctions.Sort();
+        return myActiveAuctions;
+    }
+
     public Auction GetById(int id)
     {
         return _auctions.Find(a => a.AuctionId == id && a.IsActive());
@@ -39,14 +72,14 @@ public class MockAuctionService : IAuctionService
     static MockAuctionService()
     {
         Auction a1 = new Auction(1,"Katt","julg@kth.se", "En fin katt", DateTime.Today.AddDays(1), 300);
-        Auction a2 = new Auction(2,"Kattt","julg@kth.se", "En ful katt", DateTime.Today.AddDays(2), 5000);
+        Auction a2 = new Auction(2,"Kattt","emma@kth.se", "En ful katt", DateTime.Today.AddDays(2), 5000);
         Auction a3 = new Auction(3,"Katttt","julg@kth.se", "En svart katt", DateTime.Today.AddDays(3), 200);
         Auction a4 = new Auction(4, "Kattttt", "julg@kth.se", "En vit katt", DateTime.Today.AddDays(-1), 500);
         
-        a2.AddBid(new Bids(1, "julg@kth.se", 100));
-        a2.AddBid(new Bids(2, "julg@kth.se", 150));
-        a2.AddBid(new Bids(3, "julg@kth.se", 170));
-        a2.AddBid(new Bids(4, "julg@kth.se", 599));
+        a2.AddBid(new Bids(1, "julg@kth.se", 5100));
+        a2.AddBid(new Bids(2, "julg@kth.se", 5150));
+        a2.AddBid(new Bids(3, "julg@kth.se", 5170));
+        a2.AddBid(new Bids(4, "julg@kth.se", 5599));
         _auctions.Add(a1);
         _auctions.Add(a2);
         _auctions.Add(a3);
