@@ -50,7 +50,7 @@ public class Auction : IComparable<Auction>
         }
         if (_bids.Count > 0)
         {
-            if (_bids.First().CompareTo(newBid) <= 0)
+            if (_bids.First().CompareTo(newBid) > 0)
             {
                 throw new ArgumentException("Bid must be higher than the current highest bid");
             }

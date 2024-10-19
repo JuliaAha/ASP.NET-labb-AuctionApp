@@ -7,14 +7,16 @@ namespace AuctionApplication.Models.Auctions;
 public class BidVm
 {
     [ScaffoldColumn(false)]    
-    public int Id { get; set; }                                    
+    public int Id { get; set; }    
+    
+    [Display(Name = "Bidder")]
     public string UserName { get; set; }                           
     public double Amount { get; set; }  
-    [Display(Name = "Lagt bud")]
+    [Display(Name = "Bid")]
     [DisplayFormat(DataFormatString = "{0:N2}")]
                                                                
     private DateTime _bidLayed;    
-    [Display(Name = "Lagt")]
+    [Display(Name = "Bid layed")]
     [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd HH:mm}")]
     public DateTime BidLayed { get; set; }                
                                                                

@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AuctionApplication.Migrations
 {
     [DbContext(typeof(AuctionDbContext))]
-    [Migration("20241019165741_Initial")]
+    [Migration("20241019195508_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -57,8 +57,8 @@ namespace AuctionApplication.Migrations
                         {
                             Id = -1,
                             AuctionOwner = "julg@kth.se",
-                            Description = "En gul kofta",
-                            EndDate = new DateTime(2024, 10, 22, 18, 57, 39, 651, DateTimeKind.Local).AddTicks(2820),
+                            Description = "Hej",
+                            EndDate = new DateTime(2024, 10, 22, 21, 55, 7, 470, DateTimeKind.Local).AddTicks(5270),
                             StartingPrice = 200.0,
                             Title = "Kofta"
                         });
@@ -96,7 +96,7 @@ namespace AuctionApplication.Migrations
                             Id = -1,
                             Amount = 250.0,
                             AuctionId = -1,
-                            BidDate = new DateTime(2024, 10, 19, 18, 57, 39, 651, DateTimeKind.Local).AddTicks(3210),
+                            BidDate = new DateTime(2024, 10, 19, 21, 55, 7, 470, DateTimeKind.Local).AddTicks(5630),
                             UserName = "emma@kth.se"
                         },
                         new
@@ -104,7 +104,7 @@ namespace AuctionApplication.Migrations
                             Id = -2,
                             Amount = 300.0,
                             AuctionId = -1,
-                            BidDate = new DateTime(2024, 10, 19, 18, 57, 39, 651, DateTimeKind.Local).AddTicks(3220),
+                            BidDate = new DateTime(2024, 10, 19, 21, 55, 7, 470, DateTimeKind.Local).AddTicks(5650),
                             UserName = "emma@kth.se"
                         });
                 });

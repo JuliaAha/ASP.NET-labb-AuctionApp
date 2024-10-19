@@ -1,3 +1,4 @@
+using System.Data;
 using AuctionApplication.Core;
 using AuctionApplication.Core.Interfaces;
 using AuctionApplication.Core.Interfaces.Interfaces;
@@ -30,11 +31,18 @@ namespace AuctionApplication.Controllers
         // GET: AuctionController/Details/5
         public ActionResult Details(int id)
         {
-            Auction auction = _auctionService.GetById(id);
-            if (auction == null) return BadRequest();
-            
-            AuctionDetailsVm detailsVm = AuctionDetailsVm.FromAuction(auction);
-            return View(detailsVm);
+            try
+            {
+                Auction auction = _auctionService.GetById(id);
+                if (auction == null) return BadRequest();
+
+                AuctionDetailsVm detailsVm = AuctionDetailsVm.FromAuction(auction); //är kan man använda en mapper
+                return View(detailsVm);
+            }
+            catch (DataException ex)
+            {
+                return BadRequest();
+            }
         }
         /*
         // GET: AuctionController/Create
