@@ -71,10 +71,10 @@ public class MockAuctionService : IAuctionService
     //C# style static initializer
     static MockAuctionService()
     {
-        Auction a1 = new Auction(1,"Katt","julg@kth.se", "En fin katt", DateTime.Today.AddDays(1), 300);
-        Auction a2 = new Auction(2,"Kattt","emma@kth.se", "En ful katt", DateTime.Today.AddDays(2), 5000);
-        Auction a3 = new Auction(3,"Katttt","julg@kth.se", "En svart katt", DateTime.Today.AddDays(3), 200);
-        Auction a4 = new Auction(4, "Kattttt", "julg@kth.se", "En vit katt", DateTime.Today.AddDays(-1), 500);
+        Auction a1 = new Auction(1,"Katt","julg@kth.se", "En fin katt", DateTime.Today.AddDays(1).AddHours(5), 300);
+        Auction a2 = new Auction(2,"Kattt","emma@kth.se", "En ful katt", DateTime.Today.AddDays(2).AddHours(3), 5000);
+        Auction a3 = new Auction(3,"Katttt","julg@kth.se", "En svart katt", DateTime.Today.AddDays(3).AddHours(1), 200);
+        Auction a4 = new Auction(4, "Kattttt", "julg@kth.se", "En vit katt", DateTime.Today.AddDays(-1).AddHours(23), 500);
         
         a2.AddBid(new Bid(1, "julg@kth.se", 5100));
         a2.AddBid(new Bid(2, "julg@kth.se", 5150));
