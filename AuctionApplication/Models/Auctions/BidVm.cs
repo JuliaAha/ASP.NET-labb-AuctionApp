@@ -18,7 +18,7 @@ public class BidVm
     public DateTime BidLayed { get; set; }                
                                                                
                                                                
-    public static BidVm FromBids(Bids bid)
+    public static BidVm FromBids(Bid bid)
     {
         return new BidVm()
         {

@@ -10,8 +10,8 @@ public class Auction : IComparable<Auction>
     public string AuctionOwner { get; set; }
    
     
-    private List<Bids> _bids = new List<Bids>();
-    public IEnumerable<Bids> Bids => _bids;
+    private List<Bid> _bids = new List<Bid>();
+    public IEnumerable<Bid> Bids => _bids;
 
     public Auction(string title, string auctionOwner)
     {
@@ -32,7 +32,7 @@ public class Auction : IComparable<Auction>
         StartingPrice = startingPrice;
     }
     
-    public void AddBid(Bids newBid)
+    public void AddBid(Bid newBid)
     {
         if (AuctionOwner.Equals(newBid.UserName))
         {

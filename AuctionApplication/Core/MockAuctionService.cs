@@ -44,7 +44,7 @@ public class MockAuctionService : IAuctionService
         {
             if (auction.IsActive())
             {
-                foreach (Bids bids in auction.Bids)
+                foreach (Bid bids in auction.Bids)
                 {
                     if (bids.UserName.Equals(userName) && !myActiveAuctions.Contains(auction))
                     {
@@ -76,10 +76,10 @@ public class MockAuctionService : IAuctionService
         Auction a3 = new Auction(3,"Katttt","julg@kth.se", "En svart katt", DateTime.Today.AddDays(3), 200);
         Auction a4 = new Auction(4, "Kattttt", "julg@kth.se", "En vit katt", DateTime.Today.AddDays(-1), 500);
         
-        a2.AddBid(new Bids(1, "julg@kth.se", 5100));
-        a2.AddBid(new Bids(2, "julg@kth.se", 5150));
-        a2.AddBid(new Bids(3, "julg@kth.se", 5170));
-        a2.AddBid(new Bids(4, "julg@kth.se", 5599));
+        a2.AddBid(new Bid(1, "julg@kth.se", 5100));
+        a2.AddBid(new Bid(2, "julg@kth.se", 5150));
+        a2.AddBid(new Bid(3, "julg@kth.se", 5170));
+        a2.AddBid(new Bid(4, "julg@kth.se", 5599));
         _auctions.Add(a1);
         _auctions.Add(a2);
         _auctions.Add(a3);

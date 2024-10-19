@@ -27,7 +27,7 @@ builder.Services.AddDefaultIdentity<AppIdentityUser>(
 //builder.Services.AddScoped<IAuctionPersistence, MySqlAuctionPersistence>();
 
 // auto mapping of data
-//builder.Services.AddAutoMapper(typeof(Program));
+builder.Services.AddAutoMapper(typeof(Program));
 
 var app = builder.Build();
 
