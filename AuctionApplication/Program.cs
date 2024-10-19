@@ -24,7 +24,7 @@ builder.Services.AddDefaultIdentity<AppIdentityUser>(
     .AddEntityFrameworkStores<AppIdentityDbContext>(); */
 
 //. dependency injection of persistence into service
-//builder.Services.AddScoped<IAuctionPersistence, MySqlAuctionPersistence>();
+builder.Services.AddScoped<IAuctionPersistence, MySqlAuctionPersistence>();
 
 // auto mapping of data
 builder.Services.AddAutoMapper(typeof(Program));
