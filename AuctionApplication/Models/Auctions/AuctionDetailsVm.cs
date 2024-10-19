@@ -7,13 +7,16 @@ public class AuctionDetailsVm
 {
     [ScaffoldColumn(false)] 
     public int Id { get; set; }
+    public double StartingPrice { get; set; }
     public string Title { get; set; }
     public string Description { get; set; }
     [Display(Name = "Auction End date")]
     [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd HH:mm}")]
     public DateTime AuctionEndDate { get; set; }
     public bool IsActive { get; set; }
-
+    
+    [Display(Name = "Auction owner")]
+    public string UserName { get; set; }
     public List<BidVm> BidVMs { get; set; } = new();
 
     public static AuctionDetailsVm FromAuction(Auction auction)
@@ -24,7 +27,9 @@ public class AuctionDetailsVm
             Title = auction.AuctionTitle,
             Description = auction.AuctionDescription,
             AuctionEndDate = auction.AuctionEndDate,
-            IsActive = auction.IsActive()
+            IsActive = auction.IsActive(),
+            UserName = auction.UserName,
+            StartingPrice = auction.StartingPrice
         };
         foreach (var bid in auction.Bids)
         {

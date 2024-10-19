@@ -7,6 +7,10 @@ public class AuctionVm
 {
     [ScaffoldColumn(false)] 
     public int Id { get; set; }
+    
+    [DisplayFormat(DataFormatString = "{0:N2}")]
+    public double StartingPrice { get; set; }
+    public string UserName { get; set; }
     public string Title { get; set; }
     public string Description { get; set; }
     [Display(Name = "Auction End date")]
@@ -22,7 +26,9 @@ public class AuctionVm
             Title = auction.AuctionTitle,
             AuctionEndDate = auction.AuctionEndDate,
             IsActive = auction.IsActive(),
-            Description = auction.AuctionDescription
+            Description = auction.AuctionDescription,
+            UserName = auction.UserName,
+            StartingPrice = auction.StartingPrice
         };
     }
 }

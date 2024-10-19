@@ -38,16 +38,15 @@ public class MockAuctionService : IAuctionService
     //C# style static initializer
     static MockAuctionService()
     {
-        Auction a1 = new Auction(1,"Katt","julg@kth.se", "En fin katt", DateTime.Today.AddDays(1));
-        Auction a2 = new Auction(2,"Kattt","julg@kth.se", "En ful katt", DateTime.Today.AddDays(2));
-        Auction a3 = new Auction(3,"Katttt","julg@kth.se", "En svart katt", DateTime.Today.AddDays(3));
-        Auction a4 = new Auction(4,"Kattttt","julg@kth.se", "En vit katt", DateTime.Today.AddDays(-1));
+        Auction a1 = new Auction(1,"Katt","julg@kth.se", "En fin katt", DateTime.Today.AddDays(1), 300);
+        Auction a2 = new Auction(2,"Kattt","julg@kth.se", "En ful katt", DateTime.Today.AddDays(2), 5000);
+        Auction a3 = new Auction(3,"Katttt","julg@kth.se", "En svart katt", DateTime.Today.AddDays(3), 200);
+        Auction a4 = new Auction(4, "Kattttt", "julg@kth.se", "En vit katt", DateTime.Today.AddDays(-1), 500);
         
         a2.AddBid(new Bids(1, "julg@kth.se", 100));
         a2.AddBid(new Bids(2, "julg@kth.se", 150));
-        a2.AddBid(new Bids(2, "julg@kth.se", 50));
-        a2.AddBid(new Bids(2, "julg@kth.se", 170));
-        a2.AddBid(new Bids(2, "julg@kth.se", 599)); 
+        a2.AddBid(new Bids(3, "julg@kth.se", 170));
+        a2.AddBid(new Bids(4, "julg@kth.se", 599));
         _auctions.Add(a1);
         _auctions.Add(a2);
         _auctions.Add(a3);
