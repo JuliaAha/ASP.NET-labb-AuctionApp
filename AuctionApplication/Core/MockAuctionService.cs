@@ -44,7 +44,10 @@ public class MockAuctionService : IAuctionService
         Auction a4 = new Auction(4,"Kattttt","julg@kth.se", "En vit katt", DateTime.Today.AddDays(-1));
         
         a2.AddBid(new Bids(1, "julg@kth.se", 100));
-        a2.AddBid(new Bids(1, "julg@kth.se", 150));
+        a2.AddBid(new Bids(2, "julg@kth.se", 150));
+        a2.AddBid(new Bids(2, "julg@kth.se", 50));
+        a2.AddBid(new Bids(2, "julg@kth.se", 170));
+        a2.AddBid(new Bids(2, "julg@kth.se", 599)); 
         _auctions.Add(a1);
         _auctions.Add(a2);
         _auctions.Add(a3);

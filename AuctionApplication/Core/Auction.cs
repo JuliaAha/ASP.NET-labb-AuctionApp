@@ -33,7 +33,18 @@ public class Auction : IComparable<Auction>
     
     public void AddBid(Bids newBid)
     {
-        _bids.Add(newBid);
+        
+            if (_bids.Count > 0)
+            {
+                var highestBid = _bids.Max(); 
+
+                if (highestBid.CompareTo(newBid) >= 0)
+                {
+                    throw new ArgumentException("Bid must be higher than the current highest bid");
+                }
+            }
+            _bids.Add(newBid);
+            _bids.Sort(); 
     }
 
     public bool IsActive()

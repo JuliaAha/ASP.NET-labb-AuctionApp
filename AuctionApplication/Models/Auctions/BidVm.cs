@@ -10,7 +10,7 @@ public class BidVm
     public string UserName { get; set; }                           
     public double Amount { get; set; }  
     [Display(Name = "Lagt bud")]
-    [DisplayFormat(DataFormatString = "{0000.000}")]
+    [DisplayFormat(DataFormatString = "{0:N2}")]
                                                                
     private DateTime _bidLayed;    
     [Display(Name = "Lagt")]
