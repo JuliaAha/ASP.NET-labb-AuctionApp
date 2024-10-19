@@ -26,5 +26,5 @@ public class AuctionDb
     public double StartingPrice { get; set; }
     
     //Navigation property
-    public List<AuctionDb> AuctionsDbs { get; set; } = new List<AuctionDb>();
+    public List<BidDb> BidDbs { get; set; } = new List<BidDb>();
 }
