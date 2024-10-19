@@ -16,7 +16,7 @@ public class AuctionDetailsVm
     public bool IsActive { get; set; }
     
     [Display(Name = "Auction owner")]
-    public string UserName { get; set; }
+    public string AuctionOwner { get; set; }
     public List<BidVm> BidVMs { get; set; } = new();
 
     public static AuctionDetailsVm FromAuction(Auction auction)
@@ -28,7 +28,7 @@ public class AuctionDetailsVm
             Description = auction.AuctionDescription,
             AuctionEndDate = auction.AuctionEndDate,
             IsActive = auction.IsActive(),
-            UserName = auction.UserName,
+            AuctionOwner = auction.AuctionOwner,
             StartingPrice = auction.StartingPrice
         };
         foreach (var bid in auction.Bids)

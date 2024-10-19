@@ -8,26 +8,25 @@ public class Auction : IComparable<Auction>
     public DateTime AuctionEndDate { get; set; }
     public string AuctionDescription { get; set; }
     public string AuctionOwner { get; set; }
-    
-    public string UserName { get; set; }
+   
     
     private List<Bids> _bids = new List<Bids>();
     public IEnumerable<Bids> Bids => _bids;
 
-    public Auction(string title, string userName)
+    public Auction(string title, string auctionOwner)
     {
         AuctionTitle = title;
-        UserName = userName;
+        AuctionOwner = auctionOwner;
         AuctionEndDate = AuctionEndDate.AddDays(5);
     }
 
     public Auction() { }
 
-    public Auction(int auctionId, string title, string userName, string auctionDescription, DateTime auctionEndDate, double startingPrice)
+    public Auction(int auctionId, string title, string auctionOwner, string auctionDescription, DateTime auctionEndDate, double startingPrice)
     {
         AuctionId = auctionId;
         AuctionTitle = title;
-        UserName = userName;
+        AuctionOwner = auctionOwner;
         AuctionEndDate = auctionEndDate;
         AuctionDescription = auctionDescription;
         StartingPrice = startingPrice;
@@ -35,11 +34,15 @@ public class Auction : IComparable<Auction>
     
     public void AddBid(Bids newBid)
     {
+        if (AuctionOwner.Equals(newBid.UserName))
+        {
+            throw new NotImplementedException();
+        }
         if (AuctionEndDate.CompareTo(DateTime.Now) <= 0)
         {
             throw new NotImplementedException();
         }
-        if (_bids.Count == 0 && newBid.Amount < StartingPrice)
+        if (_bids.Count == 0 && newBid.Amount <= StartingPrice)
         {
             throw new NotImplementedException();
         }
@@ -61,7 +64,7 @@ public class Auction : IComparable<Auction>
 
     public int CompareTo(Auction other)
     {
-        return this.AuctionEndDate.CompareTo(other.AuctionEndDate);
+        return AuctionEndDate.CompareTo(other.AuctionEndDate);
     }
     
     public override string ToString()
