@@ -5,6 +5,7 @@ namespace AuctionApplication.Models.Auctions;
 
 public class BidVm
 {
+    [ScaffoldColumn(false)]    
     public int Id { get; set; }                                    
     public string UserName { get; set; }                           
     public double Amount { get; set; }  
