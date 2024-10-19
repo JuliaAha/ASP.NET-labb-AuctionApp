@@ -1,18 +1,32 @@
 using AuctionApplication.Core.Interfaces;
+using AuctionApplication.Core.Interfaces.Interfaces;
 
 namespace AuctionApplication.Core;
 
-public class MockAuctionService
+public class MockAuctionService : IAuctionService
 {
     public List<Auction> GetAllByUserName(string userName)
     {
         return _auctions;
     }
-    
-    public Auction GetById(int id, string userName)
+
+    public List<Auction> GetAllActive()
     {
-        return _auctions.Find(a => a.AuctionId == id && a.UserName == userName); 
-       
+        List<Auction> activeAuctions = new List<Auction>();
+        foreach (Auction auction in _auctions)
+        {
+            if (auction.IsActive())
+            {
+                activeAuctions.Add(auction);
+            } 
+        }
+        activeAuctions.Sort();
+        return activeAuctions;
+    }
+
+    public Auction GetById(int id)
+    {
+        return _auctions.Find(a => a.AuctionId == id && a.IsActive());
     }
 
     public void Add(string userName, string Title)
@@ -24,11 +38,16 @@ public class MockAuctionService
     //C# style static initializer
     static MockAuctionService()
     {
-        Auction a1 = new Auction(1,"Byrå","julg@kth.se","Fin brun byrå");
-        Auction a2 = new Auction(1,"Tavla","julg@kth.se","Fin brun tavla");
-        a2.AddBid(new Bids(1, "julg@kth.se",50));
-        a2.AddBid(new Bids(1, "julg@kth.se",100));
+        Auction a1 = new Auction(1,"Katt","julg@kth.se", "En fin katt", DateTime.Today.AddDays(1));
+        Auction a2 = new Auction(2,"Kattt","julg@kth.se", "En ful katt", DateTime.Today.AddDays(2));
+        Auction a3 = new Auction(3,"Katttt","julg@kth.se", "En svart katt", DateTime.Today.AddDays(3));
+        Auction a4 = new Auction(4,"Kattttt","julg@kth.se", "En vit katt", DateTime.Today.AddDays(-1));
+        
+        a2.AddBid(new Bids(1, "julg@kth.se", 100));
+        a2.AddBid(new Bids(1, "julg@kth.se", 150));
         _auctions.Add(a1);
         _auctions.Add(a2);
+        _auctions.Add(a3);
+        _auctions.Add(a4);
     }
 }

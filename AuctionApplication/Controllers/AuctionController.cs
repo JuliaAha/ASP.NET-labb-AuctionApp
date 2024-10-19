@@ -1,17 +1,33 @@
+using AuctionApplication.Core.Interfaces;
+using AuctionApplication.Core.Interfaces.Interfaces;
+using AuctionApplication.Models.Auctions;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AuctionApplication.Controllers
 {
     public class AuctionController : Controller
     {
+        private IAuctionService _auctionService;
+
+        public AuctionController(IAuctionService auctionService)
+        {
+            _auctionService = auctionService;
+        }
         // GET: AuctionController
         public ActionResult Index()
         {
-            return View();
+            //List<Auction> auctions = _auctionService.GetAllByUserName("dummy");  TODO: Changed to GetAllActive;
+            List<Auction> auctions = _auctionService.GetAllActive();
+            List<AuctionVm> auctionsVms = new List<AuctionVm>();
+            foreach (Auction auction in auctions)
+            {
+                auctionsVms.Add(AuctionVm.FromAuction(auction));
+            }
+            return View(auctionsVms);
         }
 
         // GET: AuctionController/Details/5
-        public ActionResult Details(int id)
+        /*public ActionResult Details(int id)
         {
             return View();
         }
@@ -77,6 +93,6 @@ namespace AuctionApplication.Controllers
             {
                 return View();
             }
-        }
+        }*/
     }
 }

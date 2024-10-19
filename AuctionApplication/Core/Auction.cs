@@ -1,6 +1,6 @@
 namespace AuctionApplication.Core.Interfaces;
 
-public class Auction
+public class Auction : IComparable<Auction>
 {
     public int AuctionId { get; set; }
     public string AuctionTitle { get; set; }
@@ -13,22 +13,21 @@ public class Auction
     private List<Bids> _bids = new List<Bids>();
     public IEnumerable<Bids> Bids => _bids;
 
-    public Auction(string title, string userName, string auctionDescription)
+    public Auction(string title, string userName)
     {
         AuctionTitle = title;
         UserName = userName;
         AuctionEndDate = AuctionEndDate.AddDays(5);
-        AuctionDescription = auctionDescription;
     }
 
     public Auction() { }
 
-    public Auction(int auctionId, string title, string userName, string auctionDescription)
+    public Auction(int auctionId, string title, string userName, string auctionDescription, DateTime auctionEndDate)
     {
-        AuctionId = AuctionId;
+        AuctionId = auctionId;
         AuctionTitle = title;
         UserName = userName;
-        AuctionEndDate = AuctionEndDate.AddDays(5);
+        AuctionEndDate = auctionEndDate;
         AuctionDescription = auctionDescription;
     }
     
@@ -39,13 +38,16 @@ public class Auction
 
     public bool IsActive()
     {
-        if (_bids.Count == 0) return true;
-        return _bids.All(b => AuctionEndDate > DateTime.Now);
+        return AuctionEndDate > DateTime.Now;
     }
+
+    public int CompareTo(Auction other)
+    {
+        return this.AuctionEndDate.CompareTo(other.AuctionEndDate);
+    }
+    
     public override string ToString()
     {
         return $"{AuctionId}: {AuctionTitle} - completed: {IsActive()}";
     }
-
-    
 }

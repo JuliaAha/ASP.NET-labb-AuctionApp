@@ -5,7 +5,8 @@ namespace AuctionApplication.Models.Auctions;
 
 public class AuctionVm
 {
-    [ScaffoldColumn(false)] public int Id { get; set; }
+    [ScaffoldColumn(false)] 
+    public int Id { get; set; }
     public string Title { get; set; }
     public string Description { get; set; }
     [Display(Name = "Auction End date")]
@@ -20,7 +21,8 @@ public class AuctionVm
             Id = auction.AuctionId,
             Title = auction.AuctionTitle,
             AuctionEndDate = auction.AuctionEndDate,
-            IsActive = auction.IsActive()
+            IsActive = auction.IsActive(),
+            Description = auction.AuctionDescription
         };
     }
 }

@@ -2,7 +2,7 @@ namespace AuctionApplication.Core.Interfaces.Interfaces;
 
 public interface IAuctionService
 {
-    List<Auction> getAllActive();
+    List<Auction> GetAllActive();
     
     Auction GetById(int id);
     
