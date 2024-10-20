@@ -19,7 +19,7 @@ public class Auction : IComparable<Auction>
     {
         AuctionTitle = title;
         AuctionOwner = auctionOwner;
-        EndDate = EndDate.AddDays(5);
+        EndDate = DateTime.Now.AddDays(5);
     }
 
     public Auction() { }
@@ -71,6 +71,6 @@ public class Auction : IComparable<Auction>
     
     public override string ToString()
     {
-        return $"{AuctionId}: {AuctionTitle} - completed: {IsActive()}";
+        return $"Id: {AuctionId}: Title: {AuctionTitle}, Description: {AuctionDescription}, EndDate: {EndDate}";
     }
 }

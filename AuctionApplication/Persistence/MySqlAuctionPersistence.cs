@@ -23,9 +23,11 @@ public class MySqlAuctionPersistence : IAuctionPersistence {
             .ToList();
 
         List<Auction> result = new List<Auction>();
+        
         foreach (AuctionDb adb in auctionDbs)
         {
             Auction auction = _mapper.Map<Auction>(adb);
+            auction.AuctionDescription = adb.Description;
             result.Add(auction);
         }
         result.Sort();

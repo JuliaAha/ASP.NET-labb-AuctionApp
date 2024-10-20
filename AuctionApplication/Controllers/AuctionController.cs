@@ -21,6 +21,12 @@ namespace AuctionApplication.Controllers
             //List<Auction> auctions = _auctionService.GetAllByUserName("dummy");  TODO: Changed to GetAllActive;
             List<Auction> auctions = _auctionService.GetAllActive();
             List<AuctionVm> auctionsVms = new List<AuctionVm>();
+            // List<AuctionVm> auctionVms = auctions.Select(AuctionVm.FromAuction).ToList();
+            //
+            // foreach (var auctionVm in auctionVms)
+            // {
+            //     Console.WriteLine($"Auction: {auctionVm.Title}, Description: {auctionVm.Description}");
+            // }
             foreach (Auction auction in auctions)
             {
                 auctionsVms.Add(AuctionVm.FromAuction(auction));

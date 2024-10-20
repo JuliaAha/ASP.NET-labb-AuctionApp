@@ -13,7 +13,7 @@ public class AuctionDb
     
     [Required]
     [MaxLength(500)]
-    public string Description{ get; set; }
+    public string Description { get; set; }
     
     [Required]
     [DataType(DataType.DateTime)]

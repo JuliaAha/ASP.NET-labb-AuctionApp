@@ -10,6 +10,7 @@ public class AuctionDetailsVm
     public int Id { get; set; }
     public double StartingPrice { get; set; }
     public string Title { get; set; }
+    
     public string Description { get; set; }
     
     [Display(Name = "Auction ends at")]
