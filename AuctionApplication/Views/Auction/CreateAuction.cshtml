@@ -7,6 +7,21 @@
 <h1>Create</h1>
 
 <h4>CreateAuctionsVm</h4>
+
+@if (TempData["SuccessMessage"] != null)
+{
+<div class="alert alert-success">
+    @TempData["SuccessMessage"]
+</div>
+}
+
+@if (TempData["ErrorMessage"] != null)
+{
+<div class="alert alert-danger">
+    @TempData["ErrorMessage"]
+</div>
+}
+
 <hr />
 <div class="row">
     <div class="col-md-4">

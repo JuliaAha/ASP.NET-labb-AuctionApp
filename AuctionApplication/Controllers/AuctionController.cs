@@ -3,10 +3,12 @@ using AuctionApplication.Core;
 using AuctionApplication.Core.Interfaces;
 using AuctionApplication.Core.Interfaces.Interfaces;
 using AuctionApplication.Models.Auctions;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AuctionApplication.Controllers
 {
+    [Authorize]
     public class AuctionController : Controller
     {
         private IAuctionService _auctionService;
@@ -30,7 +32,7 @@ namespace AuctionApplication.Controllers
         }
         public ActionResult Pending()
         {
-            List<Auction> auctions = _auctionService.GetMyActive("julg@kth.se");
+            List<Auction> auctions = _auctionService.GetMyActive(User.Identity.Name);
             List<AuctionVm> auctionsVms = new List<AuctionVm>();
             
             foreach (Auction auction in auctions)
@@ -42,7 +44,7 @@ namespace AuctionApplication.Controllers
         
         public ActionResult Won()
         {
-            List<Auction> auctions = _auctionService.GetWonAuctions("julg@kth.se");
+            List<Auction> auctions = _auctionService.GetWonAuctions(User.Identity.Name);
             List<AuctionVm> auctionsVms = new List<AuctionVm>();
             
             foreach (Auction auction in auctions)
@@ -62,10 +64,6 @@ namespace AuctionApplication.Controllers
                 Auction auction = _auctionService.GetById(id);
                 if (auction == null) return BadRequest();
                 
-                // var createBidVm = new CreateBidVm
-                // {
-                //     AuctionId = id  // Pass the auction ID to the bid form
-                // };
                 var detailsVm = AuctionDetailsVm.FromAuction(auction);  // Assuming this method exists
                 detailsVm.Id = id;  // Set AuctionId explicitly
                 //AuctionDetailsVm detailsVm = AuctionDetailsVm.FromAuction(auction); //är kan man använda en mapper
@@ -92,22 +90,37 @@ namespace AuctionApplication.Controllers
         {
             try
             {
-                  double amount = createBidVm.Amount;
-                  string userName = "lovat@kth.se"; // Assuming user is authenticated
-                  Console.WriteLine($"Creating bid for auction ID: {id} by user: {userName} with amount: {amount}");
-                  if (ModelState.IsValid)
-                  {
-                    // Attempt to add the bid
-                    ViewBag.AuctionId = id; // Set the auction ID for the view
-                    _auctionService.AddBid(id, userName, amount);
-                    return RedirectToAction("Details", new { id = id });
-                  }
-                  return View(createBidVm); // Return view with validation errors if any
+                double amount = createBidVm.Amount;
+                string userName = User.Identity.Name;
+                var auction = _auctionService.GetById(id);
+                
+                if (auction == null)
+                {
+                    TempData["ErrorMessage"] = "Auktionen hittades inte.";
+                    return RedirectToAction("Details", new { id });
+                }
+
+                if (auction.AuctionOwner == userName)
+                {
+                    TempData["ErrorMessage"] = "Du kan inte lägga ett bud på din egen auktion.";
+                    return RedirectToAction("Details", new { id });
+                }
+
+                if (auction.Bids.Any() && amount <= auction.Bids.Max(b => b.Amount))
+                {
+                    TempData["ErrorMessage"] = "Budet måste vara högre än nuvarande högsta bud.";
+                    return RedirectToAction("Details", new { id });
+                }
+
+                ViewBag.AuctionId = id;
+                _auctionService.AddBid(id, userName, amount);
+                TempData["SuccessMessage"] = "Ditt bud lades framgångsrikt!";
+                return RedirectToAction("Details", new { id });
             }
             catch (DataException ex)
             {
-                ModelState.AddModelError("", ex.Message);
-                return View(createBidVm);
+                TempData["ErrorMessage"] = "Ett fel inträffade: " + ex.Message;
+                return RedirectToAction("Details", new { id });
             }
         }
         
@@ -129,16 +142,18 @@ namespace AuctionApplication.Controllers
                     string description = createAuctionsVm.Description;
                     DateTime endDate = createAuctionsVm.EndDate;
                     double startingPrice = createAuctionsVm.StartingPrice;
-                    string auctionOwner = "julg@kth.se";
+                    string auctionOwner = User.Identity.Name;;
                     
                     _auctionService.Add(title, auctionOwner, description, endDate, startingPrice);
+                    TempData["SuccessMessage"] = "Auktionen har skapats framgångsrikt!";
                     return RedirectToAction("Index");
                 }
                 return View(createAuctionsVm);
             }
-            catch
+            catch (Exception ex)
             {
-                return View(createAuctionsVm);
+                TempData["ErrorMessage"] = "Ett fel inträffade när auktionen skulle skapas: " + ex.Message;
+                return RedirectToAction("Index");
             }
         }
 
@@ -155,7 +170,7 @@ namespace AuctionApplication.Controllers
         {
             try
             {
-                string userName = "julg@kth.se"; // Assuming user is authenticated
+                string userName = User.Identity.Name;; // Assuming user is authenticated
                 if (ModelState.IsValid)
                 {
                     ViewBag.AuctionId = id; // Set the auction ID for the view
@@ -170,46 +185,5 @@ namespace AuctionApplication.Controllers
                 return View(changeDescriptionVm);
             }
         }
-        // GET: AuctionController/Edit/5
-       /* public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        // POST: AuctionController/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: AuctionController/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: AuctionController/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }*/
     }
 }

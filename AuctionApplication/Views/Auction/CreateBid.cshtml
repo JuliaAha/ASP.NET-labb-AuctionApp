@@ -7,6 +7,13 @@ ViewData["Title"] = "Lay a bid";
 <h1>Create</h1>
 
 <h4>CreateBidVm</h4>
+
+@if (ViewBag.ErrorMessage != null)
+{
+<div class="alert alert-danger">
+    <strong>Fel:</strong> @ViewBag.ErrorMessage
+</div>
+}
 <hr />
 <div class="row">
     <div class="col-md-4">

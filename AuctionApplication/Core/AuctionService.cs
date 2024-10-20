@@ -44,17 +44,19 @@ public class AuctionService : IAuctionService
         Console.WriteLine($"Attempting to add bid for auction ID: {auctionId}, by user: {userName}");
         if (string.IsNullOrWhiteSpace(userName)) 
             throw new DataException("Username is required");
-
+        
         // Retrieve the auction by ID
         Auction auction = _auctionPersistence.GetById(auctionId);
         if (auction == null) 
             throw new DataException("Auction not found");
-        
-        // Set description
-        auction.UpdateDescription(description);
-        
-        // Save the auction with the new bid
-        _auctionPersistence.Save(auction);
+
+        if (auction.AuctionOwner.Equals(userName))
+        {
+            // Set description
+            auction.UpdateDescription(description);
+            // Save the auction with the new bid
+            _auctionPersistence.Save(auction);
+        }
     }
     
 
