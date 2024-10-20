@@ -1,7 +1,9 @@
 using AuctionApp.Core;
+using AuctionApplication.Areas.Identity.Data;
 using AuctionApplication.Core;
 using AuctionApplication.Core.Interfaces;
 using AuctionApplication.Core.Interfaces.Interfaces;
+using AuctionApplication.Data;
 using AuctionApplication.Persistence;
 using Microsoft.EntityFrameworkCore;
 
@@ -18,11 +20,11 @@ builder.Services.AddDbContext<AuctionDbContext>(
     options => options.UseMySQL(builder.Configuration.GetConnectionString("AuctionDbConnection")));
 
 // identity
-/*builder.Services.AddDbContext<AppIdentityDbContext>(options =>
+builder.Services.AddDbContext<AuctionIdentityDbContext>(options =>
     options.UseMySQL(builder.Configuration.GetConnectionString("IdentityDbConnection")));
-builder.Services.AddDefaultIdentity<AppIdentityUser>(
+builder.Services.AddDefaultIdentity<AuctionIdentityUser>(
         options => options.SignIn.RequireConfirmedAccount = true)
-    .AddEntityFrameworkStores<AppIdentityDbContext>(); */
+    .AddEntityFrameworkStores<AuctionIdentityDbContext>(); 
 
 //. dependency injection of persistence into service
 builder.Services.AddScoped<IAuctionPersistence, MySqlAuctionPersistence>();
