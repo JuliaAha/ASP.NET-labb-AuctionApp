@@ -15,7 +15,7 @@ public class Auction : IComparable<Auction>
     private List<Bid> _bids = new List<Bid>();
     public IEnumerable<Bid> Bids => _bids;
 
-    public Auction(string title, string auctionOwner)
+    public Auction( string title, string auctionOwner, string description, DateTime endDate, double startingPrice)
     {
         AuctionTitle = title;
         AuctionOwner = auctionOwner;

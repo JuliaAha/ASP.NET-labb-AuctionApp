@@ -61,6 +61,11 @@ public class MockAuctionService : IAuctionService
         return _auctions.Find(a => a.AuctionId == id && a.IsActive());
     }
 
+    public void Add(string title, string userName, string description, DateTime endDate, double startingPrice)
+    {
+        throw new NotImplementedException();
+    }
+
     public void Add(string userName, string Title)
     {
         throw new NotImplementedException("MockProjectService.Add");

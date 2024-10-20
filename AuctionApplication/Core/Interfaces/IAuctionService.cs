@@ -9,5 +9,5 @@ public interface IAuctionService
     
     Auction GetById(int id);
     
-    void Add(string userName, string title);
+    void Add(string title, string auctionOwner, string description, DateTime endDate, double startingPrice);
 }

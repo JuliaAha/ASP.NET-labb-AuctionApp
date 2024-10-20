@@ -70,7 +70,7 @@ namespace AuctionApplication.Controllers
                 return BadRequest();
             }
         }
-        /*
+        
         // GET: AuctionController/Create
         public ActionResult Create()
         {
@@ -93,7 +93,7 @@ namespace AuctionApplication.Controllers
         }
 
         // GET: AuctionController/Edit/5
-        public ActionResult Edit(int id)
+       /* public ActionResult Edit(int id)
         {
             return View();
         }
