@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AuctionApplication.Migrations
 {
     [DbContext(typeof(AuctionDbContext))]
-    [Migration("20241019195508_Initial")]
+    [Migration("20241020144655_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -55,10 +55,10 @@ namespace AuctionApplication.Migrations
                     b.HasData(
                         new
                         {
-                            Id = -1,
+                            Id = 1,
                             AuctionOwner = "julg@kth.se",
                             Description = "Hej",
-                            EndDate = new DateTime(2024, 10, 22, 21, 55, 7, 470, DateTimeKind.Local).AddTicks(5270),
+                            EndDate = new DateTime(2024, 10, 25, 16, 46, 54, 194, DateTimeKind.Local).AddTicks(5750),
                             StartingPrice = 200.0,
                             Title = "Kofta"
                         });
@@ -93,18 +93,18 @@ namespace AuctionApplication.Migrations
                     b.HasData(
                         new
                         {
-                            Id = -1,
+                            Id = 1,
                             Amount = 250.0,
-                            AuctionId = -1,
-                            BidDate = new DateTime(2024, 10, 19, 21, 55, 7, 470, DateTimeKind.Local).AddTicks(5630),
+                            AuctionId = 1,
+                            BidDate = new DateTime(2024, 10, 20, 16, 46, 54, 194, DateTimeKind.Local).AddTicks(6090),
                             UserName = "emma@kth.se"
                         },
                         new
                         {
-                            Id = -2,
+                            Id = 2,
                             Amount = 300.0,
-                            AuctionId = -1,
-                            BidDate = new DateTime(2024, 10, 19, 21, 55, 7, 470, DateTimeKind.Local).AddTicks(5650),
+                            AuctionId = 1,
+                            BidDate = new DateTime(2024, 10, 20, 16, 46, 54, 194, DateTimeKind.Local).AddTicks(6100),
                             UserName = "emma@kth.se"
                         });
                 });

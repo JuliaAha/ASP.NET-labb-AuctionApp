@@ -61,15 +61,15 @@ namespace AuctionApplication.Migrations
             migrationBuilder.InsertData(
                 table: "AuctionDbs",
                 columns: new[] { "Id", "AuctionOwner", "Description", "EndDate", "StartingPrice", "Title" },
-                values: new object[] { -1, "jul@kth.se", "Hej", new DateTime(2024, 10, 22, 21, 55, 7, 470, DateTimeKind.Local).AddTicks(5270), 200.0, "Kofta" });
+                values: new object[] { 1, "julg@kth.se", "Hej", new DateTime(2024, 10, 25, 16, 46, 54, 194, DateTimeKind.Local).AddTicks(5750), 200.0, "Kofta" });
 
             migrationBuilder.InsertData(
                 table: "BidDbs",
                 columns: new[] { "Id", "Amount", "AuctionId", "BidDate", "UserName" },
                 values: new object[,]
                 {
-                    { -2, 300.0, -1, new DateTime(2024, 10, 19, 21, 55, 7, 470, DateTimeKind.Local).AddTicks(5650), "emma@kth.se" },
-                    { -1, 250.0, -1, new DateTime(2024, 10, 19, 21, 55, 7, 470, DateTimeKind.Local).AddTicks(5630), "emma@kth.se" }
+                    { 1, 250.0, 1, new DateTime(2024, 10, 20, 16, 46, 54, 194, DateTimeKind.Local).AddTicks(6090), "emma@kth.se" },
+                    { 2, 300.0, 1, new DateTime(2024, 10, 20, 16, 46, 54, 194, DateTimeKind.Local).AddTicks(6100), "emma@kth.se" }
                 });
 
             migrationBuilder.CreateIndex(
