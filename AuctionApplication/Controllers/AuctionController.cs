@@ -80,15 +80,15 @@ namespace AuctionApplication.Controllers
         // POST: AuctionController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public ActionResult Create(CreateAuctionsVm createAuctionsVm)
         {
             try
             {
-                return RedirectToAction(nameof(Index));
+                return View(createAuctionsVm);
             }
             catch
             {
-                return View();
+                return View(createAuctionsVm);
             }
         }
 
