@@ -84,6 +84,17 @@ namespace AuctionApplication.Controllers
         {
             try
             {
+                if (ModelState.IsValid)
+                {
+                    string title = createAuctionsVm.Title;
+                    string description = createAuctionsVm.Description;
+                    DateTime endDate = createAuctionsVm.EndDate;
+                    double startingPrice = createAuctionsVm.StartingPrice;
+                    string auctionOwner = "julg@kth.se";
+                    
+                    _auctionService.Add(title, auctionOwner, description, endDate, startingPrice);
+                    return RedirectToAction("Index");
+                }
                 return View(createAuctionsVm);
             }
             catch

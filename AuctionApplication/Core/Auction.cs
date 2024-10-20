@@ -6,7 +6,7 @@ public class Auction : IComparable<Auction>
 {
     public int AuctionId { get; set; }
     public double StartingPrice { get; set; }
-    public string AuctionTitle { get; set; }
+    public string Title { get; set; }
     public DateTime EndDate { get; set; }
     public string Description { get; set; }
     public string AuctionOwner { get; set; }
@@ -17,9 +17,11 @@ public class Auction : IComparable<Auction>
 
     public Auction( string title, string auctionOwner, string description, DateTime endDate, double startingPrice)
     {
-        AuctionTitle = title;
+        Title = title;
         AuctionOwner = auctionOwner;
-        EndDate = DateTime.Now.AddDays(5);
+        EndDate = endDate;
+        Description = description;
+        StartingPrice = startingPrice;
     }
 
     public Auction() { }
@@ -27,7 +29,7 @@ public class Auction : IComparable<Auction>
     public Auction(int auctionId, string title, string auctionOwner, string description, DateTime endDate, double startingPrice)
     {
         AuctionId = auctionId;
-        AuctionTitle = title;
+        Title = title;
         AuctionOwner = auctionOwner;
         EndDate = endDate;
         Description = description;
@@ -71,6 +73,6 @@ public class Auction : IComparable<Auction>
     
     public override string ToString()
     {
-        return $"Id: {AuctionId}: Title: {AuctionTitle}, Description: {Description}, EndDate: {EndDate}";
+        return $"Id: {AuctionId}: Title: {Title}, Description: {Description}, EndDate: {EndDate}";
     }
 }

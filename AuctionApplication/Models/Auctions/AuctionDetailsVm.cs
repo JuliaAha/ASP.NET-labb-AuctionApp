@@ -27,7 +27,7 @@ public class AuctionDetailsVm
         var detailsVM = new AuctionDetailsVm()
         {
             Id = auction.AuctionId,
-            Title = auction.AuctionTitle,
+            Title = auction.Title,
             Description = auction.Description,
             EndDate = auction.EndDate,
             IsActive = auction.IsActive(),
