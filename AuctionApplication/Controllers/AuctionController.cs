@@ -61,8 +61,14 @@ namespace AuctionApplication.Controllers
             {
                 Auction auction = _auctionService.GetById(id);
                 if (auction == null) return BadRequest();
-
-                AuctionDetailsVm detailsVm = AuctionDetailsVm.FromAuction(auction); //är kan man använda en mapper
+                
+                // var createBidVm = new CreateBidVm
+                // {
+                //     AuctionId = id  // Pass the auction ID to the bid form
+                // };
+                var detailsVm = AuctionDetailsVm.FromAuction(auction);  // Assuming this method exists
+                detailsVm.Id = id;  // Set AuctionId explicitly
+                //AuctionDetailsVm detailsVm = AuctionDetailsVm.FromAuction(auction); //är kan man använda en mapper
                 return View(detailsVm);
             }
             catch (DataException ex)
@@ -71,16 +77,49 @@ namespace AuctionApplication.Controllers
             }
         }
         
-        // GET: AuctionController/Create
-        public ActionResult Create()
+        
+        // POST: AuctionController/Create
+        public ActionResult CreateBid(int id)
         {
+            ViewBag.AuctionId = id; // Set the auction ID for the view
             return View();
         }
 
+        // POST: AuctionsController/Create/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult CreateBid(CreateBidVm createBidVm, int id)
+        {
+            try
+            {
+                  double amount = createBidVm.Amount;
+                  string userName = "lovat@kth.se"; // Assuming user is authenticated
+                  Console.WriteLine($"Creating bid for auction ID: {id} by user: {userName} with amount: {amount}");
+                  if (ModelState.IsValid)
+                  {
+                    // Attempt to add the bid
+                    ViewBag.AuctionId = id; // Set the auction ID for the view
+                    _auctionService.AddBid(id, userName, amount);
+                    return RedirectToAction("Details", new { id = id });
+                  }
+                  return View(createBidVm); // Return view with validation errors if any
+            }
+            catch (DataException ex)
+            {
+                ModelState.AddModelError("", ex.Message);
+                return View(createBidVm);
+            }
+        }
+        
+        // GET: AuctionController/Create
+        public ActionResult CreateAuction()
+        {
+            return View();
+        }
         // POST: AuctionController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(CreateAuctionsVm createAuctionsVm)
+        public ActionResult CreateAuction(CreateAuctionsVm createAuctionsVm)
         {
             try
             {

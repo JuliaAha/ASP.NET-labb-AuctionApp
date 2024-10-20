@@ -4,7 +4,11 @@
     ViewData["Title"] = "Details";
 }
 
-<h1>Details</h1>
+<h1>Auctions</h1>
+
+<p>
+    <a asp-action="CreateBid" asp-route-id="@Model.Id">Place Bid</a>
+</p>
 
 <div>
     <h4>AuctionDetailsVm</h4>

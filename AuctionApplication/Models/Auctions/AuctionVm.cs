@@ -26,7 +26,7 @@ public class AuctionVm
     {
         return new AuctionVm()
         {
-            Id = auction.AuctionId,
+            Id = auction.Id,
             Title = auction.Title,
             Description = auction.Description,
             AuctionOwner = auction.AuctionOwner,

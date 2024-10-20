@@ -9,7 +9,11 @@ public class Bid : IComparable<Bid>
     private DateTime _bidLayed;
     public DateTime BidLayed  { get => _bidLayed; }
     
-    
+    public Bid(string userName, double amount)
+    {
+        UserName = userName;
+        Amount = amount;
+    }
     public Bid(int id, string userName, double amount)
     {
         Id = id;

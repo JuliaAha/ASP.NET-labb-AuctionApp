@@ -13,7 +13,7 @@ public class AuctionDbContext : DbContext
     {
         AuctionDb adb = new AuctionDb()
         {
-            Id = -1, //seed date
+            Id = 1, //seed date
             Title = "Kofta",
             Description = "Hej",
             EndDate = DateTime.Now.AddDays(5),
@@ -25,19 +25,19 @@ public class AuctionDbContext : DbContext
 
         BidDb bdb1 = new BidDb()
         {
-            Id = -1,
+            Id = 1,
             UserName = "emma@kth.se",
             BidDate = DateTime.Now,
             Amount = 250,
-            AuctionId =-1,
+            AuctionId =1,
         };
         BidDb bdb2 = new BidDb()
         {
-            Id = -2,
+            Id = 2,
             UserName = "emma@kth.se",
             BidDate = DateTime.Now,
             Amount = 300,
-            AuctionId =-1,
+            AuctionId =1,
         };
         modelBuilder.Entity<BidDb>().HasData(bdb1);
         modelBuilder.Entity<BidDb>().HasData(bdb2);

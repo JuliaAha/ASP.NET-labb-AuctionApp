@@ -58,10 +58,19 @@ public class MockAuctionService : IAuctionService
 
     public Auction GetById(int id)
     {
-        return _auctions.Find(a => a.AuctionId == id && a.IsActive());
+        return _auctions.Find(a => a.Id == id && a.IsActive());
     }
 
+    public void AddBid(Auction auction, string userName, double amount)
+    {
+        throw new NotImplementedException();
+    }
     public void Add(string title, string userName, string description, DateTime endDate, double startingPrice)
+    {
+        throw new NotImplementedException();
+    }
+
+    public void AddBid(int id, string userName, double amount)
     {
         throw new NotImplementedException();
     }

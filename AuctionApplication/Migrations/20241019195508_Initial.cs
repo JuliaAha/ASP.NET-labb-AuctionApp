@@ -61,7 +61,7 @@ namespace AuctionApplication.Migrations
             migrationBuilder.InsertData(
                 table: "AuctionDbs",
                 columns: new[] { "Id", "AuctionOwner", "Description", "EndDate", "StartingPrice", "Title" },
-                values: new object[] { -1, "julg@kth.se", "Hej", new DateTime(2024, 10, 22, 21, 55, 7, 470, DateTimeKind.Local).AddTicks(5270), 200.0, "Kofta" });
+                values: new object[] { -1, "jul@kth.se", "Hej", new DateTime(2024, 10, 22, 21, 55, 7, 470, DateTimeKind.Local).AddTicks(5270), 200.0, "Kofta" });
 
             migrationBuilder.InsertData(
                 table: "BidDbs",
