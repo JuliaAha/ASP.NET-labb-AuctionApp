@@ -57,6 +57,8 @@ public class AuctionService : IAuctionService
             // Save the auction with the new bid
             _auctionPersistence.Save(auction);
         }
+        else
+            throw new InvalidOperationException("Du kan ej uppdatera någon annans auktion");
     }
     
 
@@ -88,8 +90,7 @@ public class AuctionService : IAuctionService
         {
             double currentHighestBid = auction.Bids.Max(b => b.Amount);
             Console.WriteLine($"Current highest bid: {currentHighestBid}");
-            if (amount <= currentHighestBid)
-                throw new InvalidOperationException("The bid amount must be greater than the current highest bid.");
+            
         }
 
         // Create and add the new bid

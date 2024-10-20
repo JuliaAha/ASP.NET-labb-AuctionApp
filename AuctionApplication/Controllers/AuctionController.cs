@@ -1,5 +1,6 @@
 using System.Data;
 using AuctionApplication.Core;
+using AuctionApplication.Core.Exceptions;
 using AuctionApplication.Core.Interfaces;
 using AuctionApplication.Core.Interfaces.Interfaces;
 using AuctionApplication.Models.Auctions;
@@ -53,8 +54,6 @@ namespace AuctionApplication.Controllers
             }
             return View(auctionsVms);
         }
-        
-        
 
         // GET: AuctionController/Details/5
         public ActionResult Details(int id)
@@ -75,7 +74,6 @@ namespace AuctionApplication.Controllers
             }
         }
         
-        
         // POST: AuctionController/Create
         public ActionResult CreateBid(int id)
         {
@@ -91,35 +89,47 @@ namespace AuctionApplication.Controllers
             try
             {
                 double amount = createBidVm.Amount;
-                string userName = User.Identity.Name;
-                var auction = _auctionService.GetById(id);
-                
-                if (auction == null)
+                string userName = User.Identity.Name; // Assuming user is authenticated
+                Console.WriteLine($"Creating bid for auction ID: {id} by user: {userName} with amount: {amount}");
+                if (ModelState.IsValid)
                 {
-                    TempData["ErrorMessage"] = "Auktionen hittades inte.";
-                    return RedirectToAction("Details", new { id });
+                    // Attempt to add the bid
+                    ViewBag.AuctionId = id; // Set the auction ID for the view
+                    _auctionService.AddBid(id, userName, amount);
+                    TempData["Success"] = "Ditt bud har lagts framgångsrikt!";
                 }
-
-                if (auction.AuctionOwner == userName)
-                {
-                    TempData["ErrorMessage"] = "Du kan inte lägga ett bud på din egen auktion.";
-                    return RedirectToAction("Details", new { id });
-                }
-
-                if (auction.Bids.Any() && amount <= auction.Bids.Max(b => b.Amount))
-                {
-                    TempData["ErrorMessage"] = "Budet måste vara högre än nuvarande högsta bud.";
-                    return RedirectToAction("Details", new { id });
-                }
-
-                ViewBag.AuctionId = id;
-                _auctionService.AddBid(id, userName, amount);
-                TempData["SuccessMessage"] = "Ditt bud lades framgångsrikt!";
+                return RedirectToAction("Details", new { id = id });
+            }
+            catch (AuctionOutDatedExceptions ex)
+            {
+                TempData["ErrorMessage"] = "You cant place a bid on a closed auction."; // Store the error message
+                return RedirectToAction("Details", new { id });
+            }
+            catch (AddBidToOwnAuctionException ex)
+            {
+                TempData["ErrorMessage"] = "You can not bid on your own auction."; // Store the error message
+                return RedirectToAction("Details", new { id });
+            }
+            catch (ToLowBidException ex)
+            {
+                TempData["ErrorMessage"] = "Your bid does not exceed current price"; // Store the error message
+                return RedirectToAction("Details", new { id });
+            }
+            catch (InvalidOperationException ex)
+            {
+                TempData["ErrorMessage"] =
+                    "An invalid operation occurred. Please try again later."; // General error message
                 return RedirectToAction("Details", new { id });
             }
             catch (DataException ex)
             {
-                TempData["ErrorMessage"] = "Ett fel inträffade: " + ex.Message;
+                TempData["ErrorMessage"] = "There was a problem with the data. Please try again."; // Data error message
+                return RedirectToAction("Details", new { id });
+            }
+            catch (Exception ex)
+            {
+                TempData["ErrorMessage"] =
+                    "An unexpected error occurred. Please try again later."; // Generic error message
                 return RedirectToAction("Details", new { id });
             }
         }
@@ -170,14 +180,21 @@ namespace AuctionApplication.Controllers
         {
             try
             {
-                string userName = User.Identity.Name;; // Assuming user is authenticated
+                string userName = User.Identity.Name;
+                ; // Assuming user is authenticated
                 if (ModelState.IsValid)
                 {
                     ViewBag.AuctionId = id; // Set the auction ID for the view
                     _auctionService.UpdateDescription(id, userName, changeDescriptionVm.Description);
                     return RedirectToAction("Details", new { id = id });
                 }
+
                 return View(changeDescriptionVm); // Return view with validation errors if any
+            }
+            catch (InvalidOperationException ex)
+            {
+                TempData["ErrorMessage"] = "Hoppsan, något gick fel.";
+                return RedirectToAction("Details", new { id = id });
             }
             catch (DataException ex)
             {
