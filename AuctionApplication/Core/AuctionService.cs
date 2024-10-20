@@ -39,7 +39,23 @@ public class AuctionService : IAuctionService
         return auction;
     }
 
-    //public void Update(Auction auction, string auctionOwner);
+    public void UpdateDescription(int auctionId, string userName, string description)
+    {
+        Console.WriteLine($"Attempting to add bid for auction ID: {auctionId}, by user: {userName}");
+        if (string.IsNullOrWhiteSpace(userName)) 
+            throw new DataException("Username is required");
+
+        // Retrieve the auction by ID
+        Auction auction = _auctionPersistence.GetById(auctionId);
+        if (auction == null) 
+            throw new DataException("Auction not found");
+        
+        // Set description
+        auction.UpdateDescription(description);
+        
+        // Save the auction with the new bid
+        _auctionPersistence.Save(auction);
+    }
     
 
     public void Add(string title, string auctionOwner, string description, DateTime endDate, double startingPrice)
